@@ -1,7 +1,7 @@
 version: "3"
 services:
   es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.2
+    image: elasticsearch:6.8.13
     container_name: es
     environment:
       - discovery.type=single-node
@@ -10,7 +10,11 @@ services:
     volumes:
       - esdata1:/usr/share/elasticsearch/data
   web:
-    image: prakhar1989/foodtrucks-web
+    image: reneab/food-trucks
+    # build: . # for build at each run
+    # environment:
+    #   - DEBUG=True # for hot reload
+    container_name: foodtrucks-web
     command: python3 app.py
     depends_on:
       - es
