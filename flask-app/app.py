@@ -19,7 +19,7 @@ def load_data_in_es():
         res = es.index(index="sfdata", doc_type="truck", id=id, body=truck)
     print("Total trucks loaded: ", len(data))
 
-def safe_check_index(index, retry=3):
+def safe_check_index(index, retry=10):
     """ connect to ES with retry """
     if not retry:
         print("Out of retries. Bailing out...")
@@ -28,8 +28,8 @@ def safe_check_index(index, retry=3):
         status = es.indices.exists(index)
         return status
     except exceptions.ConnectionError as e:
-        print("Unable to connect to ES. Retrying in 5 secs...")
-        time.sleep(5)
+        print("Unable to connect to ES. Retrying in 10 secs...")
+        time.sleep(10)
         safe_check_index(index, retry-1)
 
 def format_fooditems(string):
@@ -41,6 +41,8 @@ def check_and_load_index():
     if not safe_check_index('sfdata'):
         print("Index not found...")
         load_data_in_es()
+    else: 
+        print("Index and data already exist")
 
 ###########
 ### APP ###
