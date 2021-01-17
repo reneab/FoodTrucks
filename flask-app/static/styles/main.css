@@ -90,11 +90,10 @@ div#heading {
 }
 
 div#heading h1 {
-  font-size: 25px;
+  font-size: 28px;
   text-transform: uppercase;
-  text-shadow: -2px 2px black;
   margin: 0;
-  color: #fded39;
+  color: #1a1a1a;
 }
 
 div#heading p {
